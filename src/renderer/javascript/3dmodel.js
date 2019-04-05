@@ -1,4 +1,4 @@
-import * as THREE from '../vendor/three'
+import * as THREE from 'three'
 
 const cwidth = document.querySelector('#model-container').clientWidth - 40
 const cheight = document.querySelector('#model-container').clientHeight - 40

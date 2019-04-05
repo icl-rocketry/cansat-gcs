@@ -28,6 +28,7 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
+      THREE: 'three'
     })
   ]
 }

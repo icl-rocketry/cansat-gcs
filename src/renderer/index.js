@@ -16,11 +16,11 @@ import './javascript/3dmodel'
 document.querySelector('#home-page').style.opacity = '1'
 
 
-// var sp = require('serialport');
+// const sp = require('serialport')
 
-// sp.list(function (err, ports) {
-//   console.log(ports);
-// });
+// sp.list((err, ports) => {
+//   console.log(ports)
+// })
 
 // function SerialGetAllPorts(selected) {
 //     SerialPort.list(function (error, ports) {

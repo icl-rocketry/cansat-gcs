@@ -15,5 +15,13 @@ module.exports = {
   rules: {
     'semi': ['error', 'never'],
     'import/no-extraneous-dependencies': 'off',
+    'import/no-unresolved': 'off'
+  },
+  settings: {
+    'import/resolver': {
+      'webpack': { 
+        config: '.webpack/renderer.additions.js'
+      }
+    }
   }
 }
