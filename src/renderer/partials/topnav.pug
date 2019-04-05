@@ -1,0 +1,34 @@
+nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
+  .container-fluid
+    // Brand
+    span.h4.mb-0.text-white.text-uppercase.d-none.d-lg-inline-block
+      .media.align-items-center
+        span.avatar.avatar-lg.rounded-circle
+          img(alt='Image placeholder' src='images/logo.png')
+        span.logo-text
+          b ICL Rocketry
+          br
+          | Ground Control Station
+    // User
+    ul.navbar-nav.align-items-center.d-none.d-md-flex
+      button.btn.btn-success#start-test-btn(type='button') Start Test
+      button.btn.btn-danger#reset-test-btn(type='button' data-toggle='modal' data-target='#modal-reset-test') Reset Test
+
+
+
+  #modal-reset-test.modal(role='dialog' aria-labelledby='modal-reset-test' aria-hidden='true')
+    .modal-dialog.modal-danger.modal-dialog-centered.modal-(role='document')
+      .modal-content.bg-gradient-danger
+        .modal-header
+          h6#modal-title-notification.modal-title Are you sure?
+          button.close(type='button' data-dismiss='modal' aria-label='Close')
+            span(aria-hidden='true') &times;
+        .modal-body
+          .py-3.text-center
+            i.ni.ni-skull-55.skull-3x
+            h4.heading.mt-4 Please confirm if you want to delete all test data.
+            p
+              | This is a destructive and permanent action. You will not be able to recover the collected test data from the GCS.
+        .modal-footer
+          button.btn.btn-white(type='button') Yes, Reset Test Data!
+          button.btn.btn-link.text-white.ml-auto(type='button' data-dismiss='modal') Close

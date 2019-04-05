@@ -1,0 +1,18 @@
+.logo-text {
+  border-left:  1.5px solid white;
+  padding-left: .5rem;
+  margin-left: .5rem;
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  font-weight: 100;
+
+  b {
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+  }
+}
+
+.modal-backdrop {
+  z-index: 0;
+}

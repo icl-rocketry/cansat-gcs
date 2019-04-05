@@ -1,0 +1,16 @@
+doctype html
+head
+  include partials/head.pug
+#home-page.main-content(style='opacity:1;')
+  include partials/topnav.pug
+  include partials/header.pug
+  .container-fluid.mt--7
+    h1 asdasd
+    .row
+      .col-xl-8.mb-5.mb-xl-0
+        include partials/mainchart.pug
+      .col-xl-4
+        include partials/3dmodel.pug
+    include partials/table.pug
+    include partials/footer.pug
+//- script(src='./assets/vendor/three.js')
