@@ -14,6 +14,6 @@ module.exports = {
   },
   rules: {
     'semi': ['error', 'never'],
-    'no-extraneous-dependencies': 'off',
+    'import/no-extraneous-dependencies': 'off',
   }
 }

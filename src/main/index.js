@@ -1,14 +1,28 @@
-import { app, BrowserWindow } from 'electron'
+import { app, Menu } from 'electron'
 import * as path from 'path'
 import { format as formatUrl } from 'url'
+import devMenuTemplate from './menu/dev_menu_template'
+import editMenuTemplate from './menu/edit_menu_template'
+import createWindow from './window'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let mainWindow
 
+const setApplicationMenu = () => {
+  const menus = [editMenuTemplate]
+  if (isDevelopment) {
+    menus.push(devMenuTemplate)
+  }
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menus))
+}
+
 function createMainWindow() {
-  const window = new BrowserWindow()
+  const window = createWindow('main', {
+    width: 1250,
+    height: 750,
+  })
 
   if (isDevelopment) {
     window.webContents.openDevTools()
@@ -55,5 +69,6 @@ app.on('activate', () => {
 
 // create main BrowserWindow when electron is ready
 app.on('ready', () => {
+  setApplicationMenu()
   mainWindow = createMainWindow()
 })
