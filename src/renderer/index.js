@@ -4,15 +4,17 @@ import './stylesheets/main.scss'
 import './javascript/context_menu'
 import './javascript/external_links'
 
-// import $ from 'jquery';
+// import $ from 'jquery'
 
-// import './vendor/bootstrap.min.js';
-// import './vendor/Chart.min.js';
-// import './vendor/argon.js';
+import './vendor/bootstrap.min'
+import './vendor/Chart.min'
+import './vendor/argon'
+
+import './javascript/3dmodel'
+
 
 document.querySelector('#home-page').style.opacity = '1'
 
-// import './javascript/3dmodel.js';
 
 // var sp = require('serialport');
 
