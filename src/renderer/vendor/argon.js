@@ -992,72 +992,72 @@ var OrdersChart = (function() {
 // Sales chart
 //
 
-var mainChart = (function() {
+// var mainChart = (function() {
 
-	// Variables
+// 	// Variables
 
-	var $chart = $('#chart-sales');
-
-
-	// Methods
-
-	function init($chart) {
-
-		var mainChart = new Chart($chart, {
-			type: 'line',
-			options: {
-				scales: {
-					yAxes: [{
-						gridLines: {
-							color: Charts.colors.gray[900],
-							zeroLineColor: Charts.colors.gray[900]
-						},
-						ticks: {
-							callback: function(value) {
-								if (!(value % 10)) {
-									return value + 'm';
-								}
-							}
-						}
-					}]
-				},
-				tooltips: {
-					callbacks: {
-						label: function(item, data) {
-							var label = data.datasets[item.datasetIndex].label || '';
-							var yLabel = item.yLabel;
-							var content = '';
-
-							if (data.datasets.length > 1) {
-								content += '<span class="popover-body-label mr-auto">' + label + 's</span>';
-							}
-
-							content += '<span class="popover-body-value">' + yLabel + 'm</span>';
-							return content;
-						}
-					}
-				}
-			},
-			data: {
-				labels: [0, 10, 20, 30, 40, 50, 60, 70, 80],
-				datasets: [{
-					label: 'Altitude',
-					data: [120, 115, 108, 95, 78, 60, 40, 20]
-				}]
-			}
-		});
-
-		// Save to jQuery object
-
-		$chart.data('chart', mainChart);
-
-	};
+// 	var $chart = $('#chart-sales');
 
 
-	// Events
+// 	// Methods
 
-	if ($chart.length) {
-		init($chart);
-	}
+// 	function init($chart) {
 
-})();
+// 		var mainChart = new Chart($chart, {
+// 			type: 'line',
+// 			options: {
+// 				scales: {
+// 					yAxes: [{
+// 						gridLines: {
+// 							color: Charts.colors.gray[900],
+// 							zeroLineColor: Charts.colors.gray[900]
+// 						},
+// 						ticks: {
+// 							callback: function(value) {
+// 								if (!(value % 10)) {
+// 									return value + 'm';
+// 								}
+// 							}
+// 						}
+// 					}]
+// 				},
+// 				tooltips: {
+// 					callbacks: {
+// 						label: function(item, data) {
+// 							var label = data.datasets[item.datasetIndex].label || '';
+// 							var yLabel = item.yLabel;
+// 							var content = '';
+
+// 							if (data.datasets.length > 1) {
+// 								content += '<span class="popover-body-label mr-auto">' + label + 's</span>';
+// 							}
+
+// 							content += '<span class="popover-body-value">' + yLabel + 'm</span>';
+// 							return content;
+// 						}
+// 					}
+// 				}
+// 			},
+// 			data: {
+// 				labels: [0, 10, 20, 30, 40, 50, 60, 70, 80],
+// 				datasets: [{
+// 					label: 'Altitude',
+// 					data: [120, 115, 108, 95, 78, 60, 40, 20]
+// 				}]
+// 			}
+// 		});
+
+// 		// Save to jQuery object
+
+// 		$chart.data('chart', mainChart);
+
+// 	};
+
+
+// 	// Events
+
+// 	if ($chart.length) {
+// 		init($chart);
+// 	}
+
+// })();

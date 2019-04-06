@@ -5,7 +5,7 @@ import './stylesheets/main.scss'
 import './javascript/context_menu'
 import './javascript/external_links'
 
-// import $ from 'jquery'
+import $ from 'jquery'
 
 import './vendor/bootstrap.min'
 import './vendor/Chart.min'
@@ -13,7 +13,19 @@ import './vendor/argon'
 
 import './javascript/3dmodel'
 
+import initChart from './main_chart'
+
 const { cansat } = require('electron').remote.getCurrentWindow()
+
+const addData = (chart, label, data) => {
+  if (chart.data.labels === undefined) chart.data.labels = []
+  chart.data.labels.push(label)
+  chart.data.datasets.forEach((dataset) => {
+    if (dataset.data === undefined) dataset.data = []
+    dataset.data.push(data)
+  })
+  chart.update()
+}
 
 let pipe
 
@@ -23,6 +35,10 @@ const timeData = []
 const frameData = []
 const altData = []
 const velData = []
+const $chart = $('#chart-sales')
+const ctx = initChart($chart)
+console.log(ctx)
+
 
 const proData = (data) => {
   console.log(data)
@@ -39,6 +55,10 @@ const proData = (data) => {
   document.querySelector('#frame-val').textContent = frameData[frameData.length - 1]
   document.querySelector('#alt-val').textContent = altData[altData.length - 1]
   document.querySelector('#vel-val').textContent = velData[velData.length - 1]
+
+  if (frameData.length % 2) {
+    addData(ctx, frameData[frameData.length - 1], altData[altData.length - 1])
+  }
 }
 
 document.querySelector('#home-page').style.opacity = '1'
