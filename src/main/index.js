@@ -2,8 +2,10 @@ import { app, Menu } from 'electron'
 import * as path from 'path'
 import { format as formatUrl } from 'url'
 import devMenuTemplate from './menu/dev_menu_template'
+import configMenuTemplate from './menu/config_menu_template'
 import editMenuTemplate from './menu/edit_menu_template'
 import createWindow from './window'
+import Cansat from './cansat'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -11,7 +13,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 let mainWindow
 
 const setApplicationMenu = () => {
-  const menus = [editMenuTemplate]
+  const menus = [editMenuTemplate, configMenuTemplate]
   if (isDevelopment) {
     menus.push(devMenuTemplate)
   }
@@ -69,6 +71,7 @@ app.on('activate', () => {
 
 // create main BrowserWindow when electron is ready
 app.on('ready', () => {
-  setApplicationMenu()
   mainWindow = createMainWindow()
+  mainWindow.cansat = new Cansat()
+  setApplicationMenu()
 })

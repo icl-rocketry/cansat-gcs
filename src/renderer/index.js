@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import './stylesheets/main.scss'
 
 // Small helpers you might want to keep
@@ -11,7 +12,6 @@ import './vendor/Chart.min'
 import './vendor/argon'
 
 import './javascript/3dmodel'
-
 
 document.querySelector('#home-page').style.opacity = '1'
 

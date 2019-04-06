@@ -15,7 +15,9 @@ module.exports = {
   rules: {
     'semi': ['error', 'never'],
     'import/no-extraneous-dependencies': 'off',
-    'import/no-unresolved': 'off'
+    'import/no-unresolved': 'off',
+    'no-underscore-dangle': ['error', { 'allowAfterThis': true }],
+    'no-param-reassign': ["error", { "props": false }],
   },
   settings: {
     'import/resolver': {
