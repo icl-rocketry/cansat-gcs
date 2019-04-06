@@ -15,17 +15,48 @@ import './javascript/3dmodel'
 
 const { cansat } = require('electron').remote.getCurrentWindow()
 
-let parser
+let pipe
+
+const rawData = []
+const battData = []
+const timeData = []
+const frameData = []
+const altData = []
+const velData = []
+
+const proData = (data) => {
+  console.log(data)
+  rawData.push(data)
+  const dArr = data.split(':')
+  battData.push(dArr[6])
+  timeData.push(dArr[1])
+  frameData.push(dArr[0])
+  altData.push(dArr[4])
+  velData.push(dArr[5])
+  // console.log(battData[battData.length - 1])
+  document.querySelector('#battery-val').textContent = battData[battData.length - 1]
+  document.querySelector('#time-val').textContent = timeData[timeData.length - 1]
+  document.querySelector('#frame-val').textContent = frameData[frameData.length - 1]
+  document.querySelector('#alt-val').textContent = altData[altData.length - 1]
+  document.querySelector('#vel-val').textContent = velData[velData.length - 1]
+}
 
 document.querySelector('#home-page').style.opacity = '1'
 
 document.querySelector('#start-test-btn').addEventListener('click', () => {
-  cansat.openPort()
-  parser = cansat.onData((data) => { console.log(data) })
-  console.log(parser)
+  if (pipe === undefined) {
+    cansat.openPort()
+    pipe = cansat.onData((data) => { proData(data) })
+  } else {
+    pipe.resume()
+  }
+  document.querySelector('#start-test-btn').classList.add('d-none')
+  document.querySelector('#pause-test-btn').classList.remove('d-none')
+  document.querySelector('#start-test-btn').textContent = 'Resume Test'
 })
 
-document.querySelector('#reset-test-btn').addEventListener('click', () => {
-  parser.destroy()
-  console.log(parser)
+document.querySelector('#pause-test-btn').addEventListener('click', () => {
+  pipe.pause()
+  document.querySelector('#pause-test-btn').classList.add('d-none')
+  document.querySelector('#start-test-btn').classList.remove('d-none')
 })

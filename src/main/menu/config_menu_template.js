@@ -49,7 +49,6 @@ const listBaudrates = () => {
       },
     }
   })
-  console.log(baudrates)
   return baudrates
 }
 
