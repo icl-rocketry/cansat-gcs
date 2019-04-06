@@ -1,3 +1,5 @@
+import setApplicationMenu from './application_menu'
+
 const sp = require('serialport')
 
 const portLabelTemplate = (port) => {
@@ -10,7 +12,7 @@ const portLabelTemplate = (port) => {
     label,
     click: (menuItem, BrowserWindow) => {
       console.log('Selected Port', menuItem.sublabel)
-      BrowserWindow.cansat.port = menuItem.sublabel
+      BrowserWindow.cansat.comPort = menuItem.sublabel
     },
   }
 }
@@ -51,15 +53,27 @@ const listBaudrates = () => {
   return baudrates
 }
 
+const refreshMenu = () => {
+  setApplicationMenu() // TODO: refreshMenu Not working
+}
+
 export default {
   label: 'Config',
   submenu: [
     {
-      label: 'Port',
+      label: 'Refresh Ports',
+      click: () => { refreshMenu() },
+    },
+    {
+      type: 'separator',
+    },
+    {
+      id: 'portSubMenu',
+      label: 'Select Port',
       submenu: listSerialPorts(),
     },
     {
-      label: 'Baudrate',
+      label: 'Select Baudrate',
       submenu: listBaudrates(),
     },
   ],

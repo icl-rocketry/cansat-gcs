@@ -1,24 +1,14 @@
-import { app, Menu } from 'electron'
+import { app } from 'electron'
 import * as path from 'path'
 import { format as formatUrl } from 'url'
-import devMenuTemplate from './menu/dev_menu_template'
-import configMenuTemplate from './menu/config_menu_template'
-import editMenuTemplate from './menu/edit_menu_template'
 import createWindow from './window'
 import Cansat from './cansat'
+import setApplicationMenu from './menu/application_menu'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let mainWindow
-
-const setApplicationMenu = () => {
-  const menus = [editMenuTemplate, configMenuTemplate]
-  if (isDevelopment) {
-    menus.push(devMenuTemplate)
-  }
-  Menu.setApplicationMenu(Menu.buildFromTemplate(menus))
-}
 
 function createMainWindow() {
   const window = createWindow('main', {

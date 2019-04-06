@@ -18,6 +18,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'no-underscore-dangle': ['error', { 'allowAfterThis': true }],
     'no-param-reassign': ["error", { "props": false }],
+    'prefer-template': 'off',
   },
   settings: {
     'import/resolver': {

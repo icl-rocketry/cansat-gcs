@@ -1,28 +1,56 @@
+/* eslint-disable */
+import SerialPort from 'serialport'
+import Readline from '@serialport/parser-readline'
+
 class Cansat {
-  constructor(port, baudrate = 9600) {
-    if (port) this._port = port
-    if (baudrate) this._baudrate = baudrate
+  constructor(comPort, baudrate = 9600) {
+    if (comPort) this._comPort = comPort
+    this._baudrate = baudrate
+    this.parser = new Readline()
   }
 
-  get port() {
-    return this._port
+  get comPort() {
+    return this._comPort
   }
 
   get baudrate() {
     return this._baudrate
   }
 
-  set port(port) {
-    this._port = port
+  set comPort(comPort) {
+    this._comPort = comPort
+    this.initializePort()
   }
 
   set baudrate(baudrate) {
     this._baudrate = baudrate
+    this.initializePort()
   }
 
-  getSerial() {
-    console.log(this.port)
+  initializePort() {
+    if (this.port !== undefined && this.port.isOpen) {
+      this.port.close(() => { console.log('Port is now closed.') })
+    }
+    this.port = new SerialPort(this._comPort, {
+      baudRate: this._baudrate,
+      autoOpen: false,
+    })
+  }
+
+  openPort() {
+    if (this.port === undefined) this.initializePort()
+    if(this.port.isOpen) return
+    this.port.open((err) => {
+      if (err) {
+        console.log('Error opening port: ', err.message)
+      }
+    })
+  }
+
+  onData(cb) {
+    return this.port.pipe(this.parser).on('data', cb)
   }
 }
 
 export default Cansat
+/* eslint-enable */

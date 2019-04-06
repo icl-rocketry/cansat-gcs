@@ -13,29 +13,19 @@ import './vendor/argon'
 
 import './javascript/3dmodel'
 
+const { cansat } = require('electron').remote.getCurrentWindow()
+
+let parser
+
 document.querySelector('#home-page').style.opacity = '1'
 
+document.querySelector('#start-test-btn').addEventListener('click', () => {
+  cansat.openPort()
+  parser = cansat.onData((data) => { console.log(data) })
+  console.log(parser)
+})
 
-// const sp = require('serialport')
-
-// sp.list((err, ports) => {
-//   console.log(ports)
-// })
-
-// function SerialGetAllPorts(selected) {
-//     SerialPort.list(function (error, ports) {
-//       if (error)
-//         throw error;
-
-//       ports.forEach(function (port) {
-//         // Excluding ports not used for connections
-//         if (port.comName.match(/Bluetooth-Incoming-Port/ig))
-//           return;
-
-//         var name = port.comName.replace(/(\/dev\/(cu|tty)?\.?)/g, '')
-//         if (port.manufacturer !== undefined)
-//           name = port.manufacturer + ' (' + name + ')';
-//         console.log(port.comName, name)
-//       });
-//   })
-// }
+document.querySelector('#reset-test-btn').addEventListener('click', () => {
+  parser.destroy()
+  console.log(parser)
+})
