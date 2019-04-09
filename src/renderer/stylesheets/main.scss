@@ -5,6 +5,10 @@
   transition: opacity .7s ease-in;
 }
 
+#chartTitle {
+  text-transform: capitalize;
+}
+
 .header-fixed {
     width: 100% 
 }

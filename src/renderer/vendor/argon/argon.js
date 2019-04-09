@@ -572,7 +572,7 @@ var Charts = (function() {
 					},
 					elements: {
 						point: {
-							radius: 3,
+							radius: 0,
 							backgroundColor: colors['white']
 						},
 						line: {

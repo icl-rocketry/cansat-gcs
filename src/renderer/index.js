@@ -21,9 +21,7 @@ import Test from './javascript/test'
 
 const { cansat } = require('electron').remote.getCurrentWindow()
 
-const addData = (chart, label, data) => {
-  if (chart.data.labels === undefined) chart.data.labels = []
-  chart.data.labels.push(label)
+const addData = (chart, data) => {
   chart.data.datasets.forEach((dataset) => {
     if (dataset.data === undefined) dataset.data = []
     dataset.data.push(data)
@@ -34,11 +32,11 @@ const addData = (chart, label, data) => {
 let pipe
 
 const $chart = $('#chart-sales')
-// const ctx = initChart($chart)
+const ctx = initChart($chart)
 
 
-const test = new Test()
-const activeChart = 4
+let test
+let activeChart = 4
 
 const proData = (data) => {
   test.push(data)
@@ -53,16 +51,57 @@ const proData = (data) => {
     }
     i += 1
   })
-  // if (frameData.length % 2) {
-  //   addData(ctx, frameData[frameData.length - 1], altData[altData.length - 1])
-  // }
+  addData(ctx, { x: test.last.runTime, y: test.last[Test.dataFields[activeChart]] })
 }
+
+const switchChart = (chart, newField) => {
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data = []
+  })
+  document.getElementById('chartTitle').textContent = Test.dataFields[newField]
+  chart.update()
+}
+
+const incrementField = () => {
+  if (activeChart < 7) activeChart += 1
+  else activeChart = 2
+  switchChart(ctx, activeChart)
+}
+
+const decrementField = () => {
+  if (activeChart > 2) activeChart -= 1
+  else activeChart = 7
+  switchChart(ctx, activeChart)
+}
+
+document.querySelector('#decrement-chart-btn').addEventListener('click', () => {
+  decrementField()
+})
+
+document.querySelector('#increment-chart-btn').addEventListener('click', () => {
+  incrementField()
+})
+
 
 $(() => { document.querySelector('#home-page').style.opacity = '1' })
 
+document.querySelector('#open-port-btn').addEventListener('click', () => {
+  cansat.openPort()
+  document.querySelector('#open-port-btn').classList.add('d-none')
+  document.querySelector('#close-port-btn').classList.remove('d-none')
+  document.querySelector('#new-test-btn').classList.remove('disabled')
+
+  document.querySelector('#new-test-btn').addEventListener('click', () => {
+    test = new Test()
+    document.querySelector('#new-test-btn').classList.add('d-none')
+    document.querySelector('#start-test-btn').classList.remove('d-none')
+    document.querySelector('#save-test-btn').classList.remove('d-none')
+    document.querySelector('#reset-test-btn').classList.remove('d-none')
+  })
+})
+
 document.querySelector('#start-test-btn').addEventListener('click', () => {
   if (pipe === undefined) {
-    cansat.openPort()
     pipe = cansat.onData((data) => { proData(data) })
   } else {
     pipe.resume()
@@ -76,6 +115,10 @@ document.querySelector('#pause-test-btn').addEventListener('click', () => {
   pipe.pause()
   document.querySelector('#pause-test-btn').classList.add('d-none')
   document.querySelector('#start-test-btn').classList.remove('d-none')
+})
+
+document.querySelector('#reset-test-btn').addEventListener('click', () => {
+  // TODO: Reset test action
 })
 
 ipcRenderer.on('port-change', (_, message) => {

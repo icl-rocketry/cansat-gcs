@@ -3,16 +3,16 @@
     .row.align-items-center
       .col
         h6.text-uppercase.text-light.ls-1.mb-1 Data Plot
-        h2.text-white.mb-0#chart-title Acceleration
+        h2.text-white.mb-0#chartTitle Acceleration
       .col
         nav
           ul.pagination.justify-content-end
-            li.page-item.disabled
-              a.page-link(href='#' tabindex='-1')
+            li.page-item#decrement-chart-btn
+              a.page-link()
                 i.fa.fa-angle-left
                 span.sr-only Previous
-            li.page-item
-              a.page-link(href='#')
+            li.page-item#increment-chart-btn
+              .page-link
                 i.fa.fa-angle-right
                 span.sr-only Next
   .card-body
