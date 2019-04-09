@@ -8,13 +8,13 @@ import './javascript/external_links'
 
 import $ from 'jquery'
 
-import './vendor/bootstrap.min'
+import './vendor/argon/bootstrap.min'
 import './vendor/Chart.min'
-import './vendor/argon'
+import './vendor/argon/argon'
 
 import './javascript/3dmodel'
 
-import initChart from './main_chart'
+import initChart from './javascript/main_chart'
 
 const { cansat } = require('electron').remote.getCurrentWindow()
 

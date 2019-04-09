@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import $ from 'jquery'
-import Chart from './vendor/Chart.min'
+import Chart from '../vendor/Chart.min'
 
 const init = newChart => new Chart(newChart, {
   type: 'line',
