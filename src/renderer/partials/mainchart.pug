@@ -2,21 +2,19 @@
   .card-header.bg-transparent
     .row.align-items-center
       .col
-        .text-uppercase
-          span.text-light.ls-1.mb-1 Status: 
-          badge.badge-pill.badge-success Receiving
+        h6.text-uppercase.text-light.ls-1.mb-1 Data Plot
+        h2.text-white.mb-0#chart-title Acceleration
       .col
-        ul.nav.nav-pills.justify-content-end
-          li.nav-item.mr-2.mr-md-0(data-toggle='chart' data-target='#chart-sales' data-update='{"data":{"datasets":[{"data":[120, 115, 108, 95, 78, 60, 40, 20,0]}]}}' data-prefix='' data-suffix='m')
-            a.nav-link.py-2.px-3.active(href='#' data-toggle='tab')
-              span.d-none.d-md-block Altitude
-              span.d-md-none Alt
-          li.nav-item(data-toggle='chart' data-target='#chart-sales' data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix='' data-suffix='m/s')
-            a.nav-link.py-2.px-3(href='#' data-toggle='tab')
-              span.d-none.d-md-block Velocity
-              span.d-md-none Vel
+        nav
+          ul.pagination.justify-content-end
+            li.page-item.disabled
+              a.page-link(href='#' tabindex='-1')
+                i.fa.fa-angle-left
+                span.sr-only Previous
+            li.page-item
+              a.page-link(href='#')
+                i.fa.fa-angle-right
+                span.sr-only Next
   .card-body
-    // Chart
     .chart
-      // Chart wrapper
       canvas#chart-sales.chart-canvas

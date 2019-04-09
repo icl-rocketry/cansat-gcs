@@ -1,4 +1,5 @@
 import '@fortawesome/fontawesome-free/js/all'
+import './stylesheets/vendor.scss'
 import './stylesheets/main.scss'
 
 import './javascript/context_menu'
@@ -36,7 +37,6 @@ const altData = []
 const velData = []
 const $chart = $('#chart-sales')
 const ctx = initChart($chart)
-console.log(ctx)
 
 
 const proData = (data) => {
@@ -48,7 +48,6 @@ const proData = (data) => {
   frameData.push(dArr[0])
   altData.push(dArr[4])
   velData.push(dArr[5])
-  // console.log(battData[battData.length - 1])
   document.querySelector('#battery-val').textContent = battData[battData.length - 1]
   document.querySelector('#time-val').textContent = timeData[timeData.length - 1]
   document.querySelector('#frame-val').textContent = frameData[frameData.length - 1]
@@ -60,7 +59,7 @@ const proData = (data) => {
   }
 }
 
-document.querySelector('#home-page').style.opacity = '1'
+$(() => { document.querySelector('#home-page').style.opacity = '1' })
 
 document.querySelector('#start-test-btn').addEventListener('click', () => {
   if (pipe === undefined) {

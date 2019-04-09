@@ -8,59 +8,66 @@
             .card-body
               .row
                 .col
-                  h5.card-title.text-uppercase.text-muted.mb-0 Battery Left (%)
-                  span.h2.font-weight-bold.mb-0#battery-val 75.3
+                  h5.card-title.text-uppercase.text-muted.mb-0 Data Frame
+                  span.h2.font-weight-bold.mb-0#frame-val 23
                 .col-auto
                   .icon.icon-shape.bg-danger.text-white.rounded-circle.shadow
-                    i.fas.fa-battery-half
+                    i.fas.fa-clock
               p.mt-3.mb-0.text-muted.text-sm
                 span.text-warning.mr-2
                   i.fa.fa-arrow-down
+                  | 
                   span#time-val 101.2
                 span.text-nowrap Running Time (s)
+
+        .col-lg-3.col-sm-6
+          .card.card-stats.mb-4.mb-xl-0
+            .card-body
+              .row
+                .col
+                  h5.card-title.text-uppercase.text-muted.mb-0 Soft State
+                  span.h2.font-weight-bold.mb-0#soft-state 1
+                .col-auto
+                  .icon.icon-shape.bg-warning.text-white.rounded-circle.shadow
+                    i.fas.fa-heartbeat
+              p.mt-3.mb-0.text-muted.text-sm
+                span.text-danger.mr-2
+                  i.fas.fa-arrow-down
+                  | 
+                  span#batt-val 12.9%
+                span.text-nowrap Battery Voltage
+
         .col-lg-3.col-sm-6
           .card.card-stats.mb-4.mb-xl-0
             .card-body
               .row
                 .col
                   h5.card-title.text-uppercase.text-muted.mb-0 Altitude (m)
+                  | 
                   span.h2.font-weight-bold.mb-0#alt-val 56m
                 .col-auto
-                  .icon.icon-shape.bg-yellow.text-white.rounded-circle.shadow
+                  .icon.icon-shape.bg-info.text-white.rounded-circle.shadow
                     i.fas.fa-parachute-box
               p.mt-3.mb-0.text-muted.text-sm
                 span.text-warning.mr-2
                   i.fas.fa-arrow-down
+                  | 
                   span#vel-val 12.3
-                span.text-nowrap Vertical Velocity (m/s)
-        .col-lg-3.col-sm-6
-          .card.card-stats.mb-4.mb-xl-0
-            .card-body
-              .row
-                .col
-                  h5.card-title.text-uppercase.text-muted.mb-0 Data Frame
-                  span.h2.font-weight-bold.mb-0#frame-val 11
-                .col-auto
-                  .icon.icon-shape.bg-warning.text-white.rounded-circle.shadow
-                    i.fas.fa-tachometer-alt
-              p.mt-3.mb-0.text-muted.text-sm
-                span.text-danger.mr-2
-                  i.fas.fa-arrow-down
-                  span  12.9%
-                span.text-nowrap Packetloss
+                span.text-nowrap Descent Velocity (m/s)
         
         .col-lg-3.col-sm-6
           .card.card-stats.mb-4.mb-xl-0
             .card-body
               .row
                 .col
-                  h5.card-title.text-uppercase.text-muted.mb-0 RSSI (%)
-                  span.h2.font-weight-bold.mb-0 55
+                  h5.card-title.text-uppercase.text-muted.mb-0 Pressure (Pa)
+                  span.h2.font-weight-bold.mb-0 10149
                 .col-auto
                   .icon.icon-shape.bg-info.text-white.rounded-circle.shadow
-                    i.fas.fa-wifi
+                    i.fas.fa-thermometer-three-quarters
               p.mt-3.mb-0.text-muted.text-sm
                 span.text-success.mr-2
                   i.fas.fa-arrow-up
-                  |  5.2%
-                span.text-nowrap Change in RSSI
+                  | 
+                  span 25.3
+                span.text-nowrap Temperature (C)

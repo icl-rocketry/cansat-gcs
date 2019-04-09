@@ -572,8 +572,8 @@ var Charts = (function() {
 					},
 					elements: {
 						point: {
-							radius: 0,
-							backgroundColor: colors.theme['primary']
+							radius: 3,
+							backgroundColor: colors['white']
 						},
 						line: {
 							tension: .4,
@@ -725,15 +725,16 @@ var Charts = (function() {
 			gridLines: {
 				borderDash: [2],
 				borderDashOffset: [2],
-				color: (mode == 'dark') ? colors.gray[900] : colors.gray[300],
+				color: (mode == 'dark') ? colors.gray[900] : colors.gray[500],
 				drawBorder: false,
-				drawTicks: false,
+				drawTicks: true,
 				lineWidth: 0,
 				zeroLineWidth: 0,
 				zeroLineColor: (mode == 'dark') ? colors.gray[900] : colors.gray[300],
 				zeroLineBorderDash: [2],
 				zeroLineBorderDashOffset: [2]
 			},
+			offset: true,
 			ticks: {
 				beginAtZero: true,
 				padding: 10,

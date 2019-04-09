@@ -1,7 +1,6 @@
 nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
   .container-fluid
-    // Brand
-    span.h4.mb-0.text-white.text-uppercase.d-none.d-lg-inline-block
+    span.h4.mb-0.text-white.text-uppercase.d-lg-inline-block
       .media.align-items-center
         span.avatar.avatar-lg.rounded-circle
           img(alt='Image placeholder' src='images/logo.png')
@@ -9,13 +8,18 @@ nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
           b ICL Rocketry
           br
           | Ground Control Station
-    // User
-    ul.navbar-nav.align-items-center.d-none.d-md-flex
-      button.btn.btn-success#start-test-btn(type='button') Start Test
+    .navbar-nav.align-items-center.d-none.d-md-flex
+      .badge.badge-dot.d-flex.flex-row.align-items-center.nav-link
+        i.bg-danger
+        span.text-sm.font-weight-bold#port COM5
+      button.btn.btn-success#open-port-btn(type='button') Open Port
+      button.btn.btn-danger#close-port-btn.d-none(type='button') Close Port
+      button.btn.btn-neutral#new-test-btn.disabled(type='button') New Test
+      button.btn.btn-success#start-test-btn.d-none(type='button') Start Test
       button.btn.btn-warning#pause-test-btn.d-none(type='button') Pause Test
-      button.btn.btn-danger#reset-test-btn(type='button' data-toggle='modal' data-target='#modal-reset-test') Reset Test
-
-
+      .btn-group(role='group' aria-label='Test Actions')
+        button.btn.btn-secondary#reset-test-btn(type='button' data-toggle='modal' data-target='#modal-reset-test') Save Test
+        button.btn.btn-danger#reset-test-btn(type='button' data-toggle='modal' data-target='#modal-reset-test') Reset Test
 
   #modal-reset-test.modal(role='dialog' aria-labelledby='modal-reset-test' aria-hidden='true')
     .modal-dialog.modal-danger.modal-dialog-centered.modal-(role='document')
