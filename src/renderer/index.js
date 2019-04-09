@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import '@fortawesome/fontawesome-free/js/all'
 import './stylesheets/main.scss'
 
 // Small helpers you might want to keep
