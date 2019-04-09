@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import setApplicationMenu from './application_menu'
 
 const sp = require('serialport')
@@ -18,12 +19,13 @@ const portLabelTemplate = (port) => {
 }
 
 const listSerialPorts = () => {
+  const defaultPorts = ['COM3', 'COM4', 'COM5', 'COM6']
   const portLabels = []
   sp.list((err, ports) => {
     if (err) {
       portLabels.push({
         label: 'Error reading serial ports',
-        enalbed: false,
+        enabled: false,
       })
     } else {
       ports.forEach((port) => {
@@ -31,6 +33,8 @@ const listSerialPorts = () => {
       })
     }
   })
+  portLabels.push({ type: 'separator' })
+  defaultPorts.forEach(p => portLabels.push(portLabelTemplate({ comName: p })))
   return portLabels
 }
 

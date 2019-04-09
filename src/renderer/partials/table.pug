@@ -4,31 +4,16 @@
       .col
         h3.mb-0 Received Test Data
   .table-responsive
-    table.table.align-items-center.table-flush
+    table.table.align-items-center.table-flush.header-fixed#mainTable
       thead.thead-light
         tr
           th(scope='col') Frame
           th(scope='col') Time
-          th(scope='col') Altitude
-          th(scope='col') Velocity
           th(scope='col') Pressure
           th(scope='col') Temperature
+          th(scope='col') Altitude
+          th(scope='col') Velocity
+          th(scope='col') Battery
           th(scope='col') Soft State
       tbody
-        tr
-          th(scope='row')
-            | 1
-          td
-            | 120
-          td
-            | 305
-          td
-            //- i.fas.fa-arrow-up.text-success.mr-3
-            |  5.1
-          td
-            | 10130
-          td
-            | 20.3
-          td
-            | 1
 

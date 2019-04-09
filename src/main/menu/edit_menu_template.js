@@ -1,4 +1,4 @@
-export default {
+const template = {
   label: 'Edit',
   submenu: [
     { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
@@ -10,3 +10,5 @@ export default {
     { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' },
   ],
 }
+
+export default template

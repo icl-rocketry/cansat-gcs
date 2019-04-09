@@ -2,5 +2,9 @@
   "eslint.options": {
     "configFile": ".eslintrc.js"
   },
-  "eslint.enable": true
+  "eslint.enable": true,
+  "cSpell.words": [
+    "Cansat",
+    "accel"
+  ]
 }

@@ -1,12 +1,13 @@
-/* eslint-disable */
+/* eslint-disable no-console */
 import SerialPort from 'serialport'
 import Readline from '@serialport/parser-readline'
 
 class Cansat {
-  constructor(comPort, baudrate = 9600) {
+  constructor(comPort, baudrate = 9600, win) {
     if (comPort) this._comPort = comPort
     this._baudrate = baudrate
     this.parser = new Readline()
+    this.win = win
   }
 
   get comPort() {
@@ -19,6 +20,7 @@ class Cansat {
 
   set comPort(comPort) {
     this._comPort = comPort
+    this.win.webContents.send('port-change', this._comPort)
     this.initializePort()
   }
 
@@ -39,7 +41,7 @@ class Cansat {
 
   openPort() {
     if (this.port === undefined) this.initializePort()
-    if(this.port.isOpen) return
+    if (this.port.isOpen) return
     this.port.open((err) => {
       if (err) {
         console.log('Error opening port: ', err.message)
@@ -53,4 +55,3 @@ class Cansat {
 }
 
 export default Cansat
-/* eslint-enable */

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import '@fortawesome/fontawesome-free/js/all'
 import './stylesheets/vendor.scss'
 import './stylesheets/main.scss'
@@ -13,7 +14,10 @@ import './vendor/argon/argon'
 
 import './javascript/3dmodel'
 
+import { ipcRenderer } from 'electron'
+
 import initChart from './javascript/main_chart'
+import Test from './javascript/test'
 
 const { cansat } = require('electron').remote.getCurrentWindow()
 
@@ -29,34 +33,29 @@ const addData = (chart, label, data) => {
 
 let pipe
 
-const rawData = []
-const battData = []
-const timeData = []
-const frameData = []
-const altData = []
-const velData = []
 const $chart = $('#chart-sales')
-const ctx = initChart($chart)
+// const ctx = initChart($chart)
 
+
+const test = new Test()
+const activeChart = 4
 
 const proData = (data) => {
-  console.log(data)
-  rawData.push(data)
-  const dArr = data.split(':')
-  battData.push(dArr[6])
-  timeData.push(dArr[1])
-  frameData.push(dArr[0])
-  altData.push(dArr[4])
-  velData.push(dArr[5])
-  document.querySelector('#battery-val').textContent = battData[battData.length - 1]
-  document.querySelector('#time-val').textContent = timeData[timeData.length - 1]
-  document.querySelector('#frame-val').textContent = frameData[frameData.length - 1]
-  document.querySelector('#alt-val').textContent = altData[altData.length - 1]
-  document.querySelector('#vel-val').textContent = velData[velData.length - 1]
-
-  if (frameData.length % 2) {
-    addData(ctx, frameData[frameData.length - 1], altData[altData.length - 1])
-  }
+  test.push(data)
+  const table = document.getElementById('mainTable')
+  const row = table.insertRow(-1)
+  let i = 0
+  Test.dataFields.forEach((field) => {
+    if (i < 8) {
+      document.getElementById(field).textContent = test.last[field]
+      const cell = row.insertCell(-1)
+      cell.textContent = test.last[field]
+    }
+    i += 1
+  })
+  // if (frameData.length % 2) {
+  //   addData(ctx, frameData[frameData.length - 1], altData[altData.length - 1])
+  // }
 }
 
 $(() => { document.querySelector('#home-page').style.opacity = '1' })
@@ -77,4 +76,8 @@ document.querySelector('#pause-test-btn').addEventListener('click', () => {
   pipe.pause()
   document.querySelector('#pause-test-btn').classList.add('d-none')
   document.querySelector('#start-test-btn').classList.remove('d-none')
+})
+
+ipcRenderer.on('port-change', (_, message) => {
+  document.querySelector('#port').textContent = message
 })

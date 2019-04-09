@@ -62,6 +62,6 @@ app.on('activate', () => {
 // create main BrowserWindow when electron is ready
 app.on('ready', () => {
   mainWindow = createMainWindow()
-  mainWindow.cansat = new Cansat()
+  mainWindow.cansat = new Cansat('COM5', 9600, mainWindow)
   setApplicationMenu()
 })
