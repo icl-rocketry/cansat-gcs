@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
 import '@fortawesome/fontawesome-free/js/all'
 import './stylesheets/main.scss'
 
-// Small helpers you might want to keep
 import './javascript/context_menu'
 import './javascript/external_links'
 
