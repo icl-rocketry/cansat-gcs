@@ -56,7 +56,7 @@ const proData = (data) => {
 
 const switchChart = (chart, newField) => {
   chart.data.datasets.forEach((dataset) => {
-    dataset.data = []
+    dataset.data = test.rawData[Test.dataFields[newField]]
   })
   document.getElementById('chartTitle').textContent = Test.dataFields[newField]
   chart.update()
