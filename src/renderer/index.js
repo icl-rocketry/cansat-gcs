@@ -41,14 +41,28 @@ let activeChart = 4
 const proData = (data) => {
   test.push(data)
   const table = document.getElementById('mainTable')
-  const row = table.insertRow(-1)
+  const row = table.insertRow(0)
   let i = 0
   Test.dataFields.forEach((field) => {
     if (i < 8) {
-      document.getElementById(field).textContent = test.last[field]
-      const cell = row.insertCell(-1)
-      cell.textContent = test.last[field]
+      const el = document.getElementById(field)
+      el.textContent = test.last[field]
+      if (el.parentElement.tagName === 'SPAN') {
+        if (test.hasIncreased(field)) {
+          el.parentElement.classList.add('text-success')
+          el.parentElement.classList.remove('text-danger')
+          el.parentElement.firstElementChild.classList.add('fa-arrow-up')
+          el.parentElement.firstElementChild.classList.remove('fa-arrow-down')
+        } else {
+          el.parentElement.classList.add('text-danger')
+          el.parentElement.classList.remove('text-success')
+          el.parentElement.firstElementChild.classList.add('fa-arrow-down')
+          el.parentElement.firstElementChild.classList.remove('fa-arrow-up')
+        }
+      }
     }
+    const cell = row.insertCell(-1)
+    cell.textContent = test.last[field]
     i += 1
   })
   addData(ctx, { x: test.last.runTime, y: test.last[Test.dataFields[activeChart]] })
@@ -102,6 +116,7 @@ document.querySelector('#open-port-btn').addEventListener('click', () => {
 
   document.querySelector('#new-test-btn').addEventListener('click', () => {
     test = new Test()
+    switchChart(ctx, activeChart)
     document.querySelector('#new-test-btn').classList.add('d-none')
     document.querySelector('#start-test-btn').classList.remove('d-none')
     document.querySelector('#save-test-btn').classList.remove('d-none')

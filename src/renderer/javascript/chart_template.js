@@ -19,8 +19,7 @@ export default {
           maxTicksLimit: 5,
         },
         scaleLabel: {
-          display: true,
-          labelString: 'Acceleration (ms-2)',
+          display: false,
         },
         gridLines: {
           display: false,

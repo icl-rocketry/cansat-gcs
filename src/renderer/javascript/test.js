@@ -36,7 +36,11 @@ class Test {
   }
 
   get length() {
-    return this.rawData[this.primaryField].length
+    return this.rawData[Test.primaryField].length
+  }
+
+  hasIncreased(field) {
+    return this.rawData[field][this.length - 1] > this.rawData[field][this.length - 2]
   }
 }
 

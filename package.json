@@ -2,13 +2,13 @@
   "name": "Cansat-GCS",
   "productName": "ICLR CanSat GCS",
   "description": "Ground Control Station for ICLR Cansat Operations",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "license": "MIT",
   "author": "Vishnu R Menon <vishthemenon@gmail.com>",
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
-    "dist": "yarn compile && electron-builder -wm --x64",
+    "dist": "yarn compile && electron-builder -wml --x64",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
     "postinstall": "electron-rebuild -v 4.1.3",
     "rebuild": "yarn postinstall"
