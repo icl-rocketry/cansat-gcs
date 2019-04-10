@@ -2,7 +2,7 @@
   "name": "Cansat-GCS",
   "productName": "ICLR CanSat GCS",
   "description": "Ground Control Station for ICLR Cansat Operations",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "author": "Vishnu R Menon <vishthemenon@gmail.com>",
   "scripts": {
@@ -48,7 +48,9 @@
     }
   },
   "dependencies": {
+    "csv": "^5.1.1",
     "fs-jetpack": "^2.2.2",
+    "json2csv": "^4.4.1",
     "serialport": "^7.1.4",
     "source-map-support": "^0.5.10",
     "typeface-open-sans": "^0.0.54"

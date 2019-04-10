@@ -3,6 +3,7 @@ class Test {
     this.testName = name
     this.rawData = {}
     this.last = {}
+    this.dataFrames = []
     Test.dataFields.forEach((field) => { this.rawData[field] = [] })
   }
 
@@ -24,10 +25,13 @@ class Test {
       console.error('Data frame is invalid -', arr, arr.length, Test.dataFields.length)
       return this.last
     }
+    const dataFrame = {}
     Test.dataFields.forEach((field) => {
-      [this.last[field]] = arr
+      [dataFrame[field]] = arr
       this.rawData[field].push(arr.shift())
     })
+    this.last = dataFrame
+    this.dataFrames.push(dataFrame)
     return arr
   }
 

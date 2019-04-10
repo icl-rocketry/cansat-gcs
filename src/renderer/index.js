@@ -6,20 +6,20 @@ import './stylesheets/main.scss'
 import './javascript/context_menu'
 import './javascript/external_links'
 
-import $ from 'jquery'
-
 import './vendor/argon/bootstrap.min'
 import './vendor/Chart.min'
 import './vendor/argon/argon'
 
-import { ipcRenderer } from 'electron'
+import $ from 'jquery'
+import { ipcRenderer, remote } from 'electron'
+import fs from 'fs'
 
 import animate from './javascript/3dmodel'
-
 import initChart from './javascript/main_chart'
 import Test from './javascript/test'
 
-const { cansat } = require('electron').remote.getCurrentWindow()
+
+const { cansat, CSVParser } = remote.getCurrentWindow()
 
 const addData = (chart, data) => {
   chart.data.datasets.forEach((dataset) => {
@@ -132,4 +132,16 @@ document.querySelector('#reset-test-btn').addEventListener('click', () => {
 
 ipcRenderer.on('port-change', (_, message) => {
   document.querySelector('#port').textContent = message
+})
+
+document.querySelector('#save-test-btn').addEventListener('click', () => {
+  remote.dialog.showSaveDialog(remote.getCurrentWindow(), {}, (fileName) => {
+    const saveString = JSON.stringify({ Test: test }, null, 4)
+    fs.writeFileSync(fileName + '.json', saveString, 'utf-8')
+
+    const fields = Test.dataFields
+    const json2csvParser = new CSVParser({ fields })
+    const csv = json2csvParser.parse(test.dataFrames)
+    fs.writeFileSync(fileName + '.csv', csv, 'utf-8')
+  })
 })

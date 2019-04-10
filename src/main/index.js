@@ -1,6 +1,7 @@
 import { app } from 'electron'
 import * as path from 'path'
 import { format as formatUrl } from 'url'
+import { Parser } from 'json2csv' // TODO: fix this dep issue
 import createWindow from './window'
 import Cansat from './cansat'
 import setApplicationMenu from './menu/application_menu'
@@ -63,5 +64,6 @@ app.on('activate', () => {
 app.on('ready', () => {
   mainWindow = createMainWindow()
   mainWindow.cansat = new Cansat('COM5', 9600, mainWindow)
+  mainWindow.CSVParser = Parser
   setApplicationMenu()
 })
