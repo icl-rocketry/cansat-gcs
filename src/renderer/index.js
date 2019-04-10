@@ -12,9 +12,9 @@ import './vendor/argon/bootstrap.min'
 import './vendor/Chart.min'
 import './vendor/argon/argon'
 
-import './javascript/3dmodel'
-
 import { ipcRenderer } from 'electron'
+
+import animate from './javascript/3dmodel'
 
 import initChart from './javascript/main_chart'
 import Test from './javascript/test'
@@ -52,11 +52,20 @@ const proData = (data) => {
     i += 1
   })
   addData(ctx, { x: test.last.runTime, y: test.last[Test.dataFields[activeChart]] })
+  animate(test.last.orientX, test.last.orientY, test.last.orientZ)
 }
 
 const switchChart = (chart, newField) => {
   chart.data.datasets.forEach((dataset) => {
-    dataset.data = test.rawData[Test.dataFields[newField]]
+    const data = []
+    test.rawData[Test.dataFields[newField]].forEach((y, i) => {
+      const x = test.rawData.runTime[i]
+      data.push({
+        x,
+        y,
+      })
+    })
+    dataset.data = data
   })
   document.getElementById('chartTitle').textContent = Test.dataFields[newField]
   chart.update()

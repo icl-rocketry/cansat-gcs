@@ -20,22 +20,30 @@ scene.add(skyBox)
 
 document.querySelector('#model-container').appendChild(renderer.domElement)
 
-// var geometry = new THREE.BoxGeometry(1, 1, 1);
 const geometry = new THREE.CylinderGeometry(1, 1, 5, 10, 1, false, 0, Math.PI * 2)
-// var material = new THREE.MeshBasicMaterial({ color: 0x716ce1 });
 const material = new THREE.MeshNormalMaterial()
 const cylinder = new THREE.Mesh(geometry, material)
 scene.add(cylinder)
 
 camera.position.z = 5
+renderer.render(scene, camera)
 
-const animate = () => {
-  requestAnimationFrame(animate)
+const animate = (orientX, orientY, orientZ) => {
+  const vector = new THREE.Vector3(
+    orientX,
+    orientY,
+    orientZ,
+  )
 
-  cylinder.rotation.x += 0.01
-  cylinder.rotation.y += 0.01
+  const focalPoint = new THREE.Vector3(
+    cylinder.position.x + vector.x,
+    cylinder.position.y + vector.y,
+    cylinder.position.z + vector.z,
+  )
 
+  const axis = new THREE.Vector3(0, 0, 1)
+  cylinder.quaternion.setFromUnitVectors(axis, focalPoint.clone().normalize())
   renderer.render(scene, camera)
 }
 
-animate()
+export default animate
