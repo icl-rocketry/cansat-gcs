@@ -14,18 +14,24 @@ class Test {
     ]
   }
 
+  static processData(arr) {
+    arr[1] /= 1000
+    return arr
+  }
+
   static get primaryField() {
     return Test.dataFields[0]
   }
 
   push(frame) {
-    const arr = frame.split(':').map(x => parseFloat(x))
+    let arr = frame.split(':').map(x => parseFloat(x))
     arr.pop()
     if (arr.length !== Test.dataFields.length) {
       console.error('Data frame is invalid -', arr, arr.length, Test.dataFields.length)
       return this.last
     }
     const dataFrame = {}
+    arr = Test.processData(arr)
     Test.dataFields.forEach((field) => {
       [dataFrame[field]] = arr
       this.rawData[field].push(arr.shift())

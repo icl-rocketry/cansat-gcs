@@ -10,12 +10,6 @@ export default {
       },
       yAxes: [{
         ticks: {
-          // eslint-disable-next-line consistent-return
-          // callback(value) {
-          //   if (!(value % 10)) {
-          //     return value + 'm'
-          //   }
-          // },
           maxTicksLimit: 5,
         },
         scaleLabel: {

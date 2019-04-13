@@ -12,7 +12,6 @@ renderer.setSize(cwidth, cheight)
 const light = new THREE.PointLight(0xffffff)
 light.position.set(0, 150, 100)
 scene.add(light)
-// SKYBOX/FOG
 const skyBoxGeometry = new THREE.CubeGeometry(10000, 10000, 10000)
 const skyBoxMaterial = new THREE.MeshBasicMaterial({ color: 0x9999ff, side: THREE.BackSide })
 const skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial)
@@ -21,28 +20,44 @@ scene.add(skyBox)
 document.querySelector('#model-container').appendChild(renderer.domElement)
 
 const geometry = new THREE.CylinderGeometry(1, 1, 5, 10, 1, false, 0, Math.PI * 2)
+geometry.center()
 const material = new THREE.MeshNormalMaterial()
 const cylinder = new THREE.Mesh(geometry, material)
+const edge = new THREE.EdgesHelper(cylinder, 0xffffff)
 scene.add(cylinder)
-
-camera.position.z = 5
+scene.add(edge)
+camera.position.z = 6
 renderer.render(scene, camera)
 
+let [prevX, prevY, prevZ] = [0, -90, 0]
+
+const toRad = deg => deg * Math.PI / 180
+
+const rotateModel = (orientX, orientY, orientZ) => {
+  const X = toRad(orientX)
+  const Y = toRad(orientY)
+  const Z = toRad(orientZ)
+
+  const axisX = new THREE.Vector3(0, 1, 0)
+  const axisY = new THREE.Vector3(1, 0, 0)
+  const axisZ = new THREE.Vector3(0, 0, 1)
+
+  cylinder.rotateOnWorldAxis(axisX, X - prevX)
+  cylinder.rotateOnWorldAxis(axisY, Y - prevY)
+  cylinder.rotateOnWorldAxis(axisZ, Z - prevZ)
+
+  edge.rotateOnWorldAxis(axisX, X - prevX)
+  edge.rotateOnWorldAxis(axisY, Y - prevY)
+  edge.rotateOnWorldAxis(axisZ, Z - prevZ)
+
+  prevX = X
+  prevY = Y
+  prevZ = Z
+  renderer.render(scene, camera)
+}
+
 const animate = (orientX, orientY, orientZ) => {
-  const vector = new THREE.Vector3(
-    orientX,
-    orientY,
-    orientZ,
-  )
-
-  const focalPoint = new THREE.Vector3(
-    cylinder.position.x + vector.x,
-    cylinder.position.y + vector.y,
-    cylinder.position.z + vector.z,
-  )
-
-  const axis = new THREE.Vector3(0, 0, 1)
-  cylinder.quaternion.setFromUnitVectors(axis, focalPoint.clone().normalize())
+  rotateModel(orientX, orientY, orientZ)
   renderer.render(scene, camera)
 }
 

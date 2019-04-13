@@ -738,11 +738,6 @@ var Charts = (function() {
 			ticks: {
 				beginAtZero: true,
 				padding: 10,
-				callback: function(value) {
-					if (!(value % 10)) {
-						return value
-					}
-				}
 			}
 		});
 

@@ -113,7 +113,11 @@ document.querySelector('#open-port-btn').addEventListener('click', () => {
     console.log('Port is open')
     document.querySelector('#open-port-btn').classList.add('d-none')
     document.querySelector('#close-port-btn').classList.remove('d-none')
-    document.querySelector('#new-test-btn').classList.remove('d-none')
+    if (test === undefined) {
+      document.querySelector('#new-test-btn').classList.remove('d-none')
+    } else {
+      document.querySelector('#start-test-btn').classList.remove('d-none')
+    }
     document.querySelector('#port-status').classList.add('bg-success')
     document.querySelector('#port-status').classList.remove('bg-danger')
   })
@@ -137,8 +141,7 @@ document.querySelector('#close-port-btn').addEventListener('click', () => {
     document.querySelector('#close-port-btn').classList.add('d-none')
     document.querySelector('#new-test-btn').classList.add('d-none')
     document.querySelector('#start-test-btn').classList.add('d-none')
-    document.querySelector('#save-test-btn').classList.add('d-none')
-    document.querySelector('#reset-test-btn').classList.add('d-none')
+    document.querySelector('#pause-test-btn').classList.add('d-none')
     document.querySelector('#port-status').classList.remove('bg-success')
     document.querySelector('#port-status').classList.add('bg-danger')
     pipe = undefined
