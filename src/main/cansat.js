@@ -39,14 +39,14 @@ class Cansat {
     })
   }
 
-  openPort() {
+  openPort(cb) {
     if (this.port === undefined) this.initializePort()
     if (this.port.isOpen) return
-    this.port.open((err) => {
-      if (err) {
-        console.log('Error opening port: ', err.message)
-      }
-    })
+    this.port.open(err => (err ? console.log('Error opening port: ', err.message) : cb()))
+  }
+
+  closePort(cb) {
+    this.port.close(err => (err ? console.log('Error opening port: ', err.message) : cb()))
   }
 
   onData(cb) {

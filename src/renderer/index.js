@@ -109,20 +109,57 @@ document.querySelector('#increment-chart-btn').addEventListener('click', () => {
 $(() => { document.querySelector('#home-page').style.opacity = '1' })
 
 document.querySelector('#open-port-btn').addEventListener('click', () => {
-  cansat.openPort()
-  document.querySelector('#open-port-btn').classList.add('d-none')
-  document.querySelector('#close-port-btn').classList.remove('d-none')
-  document.querySelector('#new-test-btn').classList.remove('disabled')
-
-  document.querySelector('#new-test-btn').addEventListener('click', () => {
-    test = new Test()
-    switchChart(ctx, activeChart)
-    document.querySelector('#new-test-btn').classList.add('d-none')
-    document.querySelector('#start-test-btn').classList.remove('d-none')
-    document.querySelector('#save-test-btn').classList.remove('d-none')
-    document.querySelector('#reset-test-btn').classList.remove('d-none')
+  cansat.openPort(() => {
+    console.log('Port is open')
+    document.querySelector('#open-port-btn').classList.add('d-none')
+    document.querySelector('#close-port-btn').classList.remove('d-none')
+    document.querySelector('#new-test-btn').classList.remove('d-none')
+    document.querySelector('#port-status').classList.add('bg-success')
+    document.querySelector('#port-status').classList.remove('bg-danger')
   })
 })
+
+document.querySelector('#new-test-btn').addEventListener('click', () => {
+  test = new Test()
+  switchChart(ctx, activeChart)
+
+  document.querySelector('#new-test-btn').classList.add('d-none')
+  document.querySelector('#start-test-btn').classList.remove('d-none')
+
+  document.querySelector('#save-test-btn').classList.remove('d-none')
+  document.querySelector('#reset-test-btn').classList.remove('d-none')
+})
+
+document.querySelector('#close-port-btn').addEventListener('click', () => {
+  cansat.closePort(() => {
+    console.log('Port is closed')
+    document.querySelector('#open-port-btn').classList.remove('d-none')
+    document.querySelector('#close-port-btn').classList.add('d-none')
+    document.querySelector('#new-test-btn').classList.add('d-none')
+    document.querySelector('#start-test-btn').classList.add('d-none')
+    document.querySelector('#save-test-btn').classList.add('d-none')
+    document.querySelector('#reset-test-btn').classList.add('d-none')
+    document.querySelector('#port-status').classList.remove('bg-success')
+    document.querySelector('#port-status').classList.add('bg-danger')
+    pipe = undefined
+  })
+})
+
+const resetTest = () => {
+  // TODO: Reset test action
+}
+
+const saveTest = () => {
+  remote.dialog.showSaveDialog(remote.getCurrentWindow(), {}, (fileName) => {
+    const saveString = JSON.stringify({ Test: test }, null, 4)
+    fs.writeFileSync(fileName + '.json', saveString, 'utf-8')
+
+    const fields = Test.dataFields
+    const json2csvParser = new CSVParser({ fields })
+    const csv = json2csvParser.parse(test.dataFrames)
+    fs.writeFileSync(fileName + '.csv', csv, 'utf-8')
+  })
+}
 
 document.querySelector('#start-test-btn').addEventListener('click', () => {
   if (pipe === undefined) {
@@ -133,30 +170,26 @@ document.querySelector('#start-test-btn').addEventListener('click', () => {
   document.querySelector('#start-test-btn').classList.add('d-none')
   document.querySelector('#pause-test-btn').classList.remove('d-none')
   document.querySelector('#start-test-btn').textContent = 'Resume Test'
+
+  document.querySelector('#reset-test-btn').classList.add('disabled')
+  document.querySelector('#save-test-btn').classList.add('disabled')
+
+  document.querySelector('#reset-test-btn').removeEventListener('click', resetTest)
+  document.querySelector('#save-test-btn').removeEventListener('click', saveTest)
 })
 
 document.querySelector('#pause-test-btn').addEventListener('click', () => {
   pipe.pause()
   document.querySelector('#pause-test-btn').classList.add('d-none')
   document.querySelector('#start-test-btn').classList.remove('d-none')
-})
 
-document.querySelector('#reset-test-btn').addEventListener('click', () => {
-  // TODO: Reset test action
+  document.querySelector('#save-test-btn').classList.remove('disabled')
+  document.querySelector('#reset-test-btn').classList.remove('disabled')
+
+  document.querySelector('#reset-test-btn').addEventListener('click', resetTest)
+  document.querySelector('#save-test-btn').addEventListener('click', saveTest)
 })
 
 ipcRenderer.on('port-change', (_, message) => {
   document.querySelector('#port').textContent = message
-})
-
-document.querySelector('#save-test-btn').addEventListener('click', () => {
-  remote.dialog.showSaveDialog(remote.getCurrentWindow(), {}, (fileName) => {
-    const saveString = JSON.stringify({ Test: test }, null, 4)
-    fs.writeFileSync(fileName + '.json', saveString, 'utf-8')
-
-    const fields = Test.dataFields
-    const json2csvParser = new CSVParser({ fields })
-    const csv = json2csvParser.parse(test.dataFrames)
-    fs.writeFileSync(fileName + '.csv', csv, 'utf-8')
-  })
 })
