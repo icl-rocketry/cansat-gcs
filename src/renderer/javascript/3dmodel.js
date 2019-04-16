@@ -27,7 +27,6 @@ const edge = new THREE.EdgesHelper(cylinder, 0xffffff)
 scene.add(cylinder)
 scene.add(edge)
 camera.position.z = 6
-renderer.render(scene, camera)
 
 let [prevX, prevY, prevZ] = [0, -90, 0]
 
@@ -56,9 +55,20 @@ const rotateModel = (orientX, orientY, orientZ) => {
   renderer.render(scene, camera)
 }
 
-const animate = (orientX, orientY, orientZ) => {
+export const animate = (orientX, orientY, orientZ) => {
   rotateModel(orientX, orientY, orientZ)
   renderer.render(scene, camera)
 }
 
-export default animate
+export const resetOrientation = () => {
+  cylinder.rotation.x = 0
+  cylinder.rotation.y = -90
+  cylinder.rotation.z = 0
+
+  edge.rotation.x = 0
+  edge.rotation.y = -90
+  edge.rotation.z = 0
+  renderer.render(scene, camera)
+}
+
+resetOrientation()

@@ -14,7 +14,7 @@ import $ from 'jquery'
 import { ipcRenderer, remote } from 'electron'
 import fs from 'fs'
 
-import animate from './javascript/3dmodel'
+import { animate, resetOrientation } from './javascript/3dmodel'
 import initChart from './javascript/main_chart'
 import Test from './javascript/test'
 
@@ -110,7 +110,6 @@ $(() => { document.querySelector('#home-page').style.opacity = '1' })
 
 document.querySelector('#open-port-btn').addEventListener('click', () => {
   cansat.openPort(() => {
-    console.log('Port is open')
     document.querySelector('#open-port-btn').classList.add('d-none')
     document.querySelector('#close-port-btn').classList.remove('d-none')
     if (test === undefined) {
@@ -136,7 +135,6 @@ document.querySelector('#new-test-btn').addEventListener('click', () => {
 
 document.querySelector('#close-port-btn').addEventListener('click', () => {
   cansat.closePort(() => {
-    console.log('Port is closed')
     document.querySelector('#open-port-btn').classList.remove('d-none')
     document.querySelector('#close-port-btn').classList.add('d-none')
     document.querySelector('#new-test-btn').classList.add('d-none')
@@ -192,6 +190,8 @@ document.querySelector('#pause-test-btn').addEventListener('click', () => {
   document.querySelector('#reset-test-btn').addEventListener('click', resetTest)
   document.querySelector('#save-test-btn').addEventListener('click', saveTest)
 })
+
+document.querySelector('#reset-orientation-btn').addEventListener('click', resetOrientation)
 
 ipcRenderer.on('port-change', (_, message) => {
   document.querySelector('#port').textContent = message
